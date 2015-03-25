@@ -10,7 +10,7 @@ exports.postUsers = function(req,res){
 
 	user.save(function(err){
 		if(err){
-			res.send(err);
+			return res.send(err);
 		}
 
 		res.json({message:'New User Added'});
