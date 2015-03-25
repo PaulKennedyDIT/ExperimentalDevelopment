@@ -2,7 +2,7 @@
 var User = require('../models/user');
 
 //Create Endpoint api/users for POST
-exports.postUsers = function(req,res){
+exports.postUsers = function(req,res,next){
 	var user = new User({
 		username:req.body.username,
 		password: req.body.password
@@ -10,7 +10,7 @@ exports.postUsers = function(req,res){
 
 	user.save(function(err){
 		if(err){
-			return res.send(err);
+			return next(err);
 		}
 
 		res.json({message:'New User Added'});
