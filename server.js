@@ -2,7 +2,12 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+
+//Controllers
 var objectController = require('./controllers/object');
+var userController = require('./controllers/user');
+var authController = require('./controllers/auth');
 
 //Connect to the Development Framework MongoDB
 mongoose.connect('mongodb://localhost:27017/DevFramework');
@@ -26,6 +31,9 @@ app.use(express.static(__dirname + '/public',{maxAge:cacheTimeInMS}));
 //Using Compression on Response headers
 app.use(compression());
 
+//Use the passport package in application
+app.use(passport.initialize());
+
 // Create Express Router
 var router = express.Router();
 
@@ -36,14 +44,19 @@ router.get('/',function(req,res){
 
 //Create endpoint handlers for /api/objects
 router.route('/objects')
-  .post(objectController.postObjects)
-  .get(objectController.getObjects);
+  .post(authController.isAuthenticated,objectController.postObjects)
+  .get(authController.isAuthenticated,objectController.getObjects);
 
 //Create endpoint handlers for /api/objects/:object_id
 router.route('/objects/:object_id')
-  .get(objectController.getObject)
-  .put(objectController.putObject)
-  .delete(objectController.deleteObject);
+  .get(authController.isAuthenticated,objectController.getObject)
+  .put(authController.isAuthenticated,objectController.putObject)
+  .delete(authController.isAuthenticated,objectController.deleteObject);
+
+//Create endpoint handlers for /api/users
+router.route('/users')
+	.post(userController.postUsers)
+	.get(authController.isAuthenticated,userController.getUsers);
 
 //Register all routers with /api
 app.use('/api', router);

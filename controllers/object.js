@@ -10,6 +10,7 @@ exports.postObjects = function(req,res){
 	object.name = req.body.name;
 	object.type 	= req.body.type;
 	object.quantifier	= req.body.quantifier;
+  object.userId = req.user._id;
 
 	//Save the object and check for errors
 	object.save(function(err){
@@ -23,7 +24,7 @@ exports.postObjects = function(req,res){
 //Create endpoint /api/object for GET
 exports.getObjects = function(req,res){
 	//Use the Object model to find all objects
-	Object.find(function(err,objects){
+	Object.find({userId: req.user._id},function(err,objects){
 		if(err){
 			res.send(err);
 		}
@@ -34,7 +35,7 @@ exports.getObjects = function(req,res){
 // Create endpoint /api/Objects/:Object_id for GET
 exports.getObject = function(req, res) {
   // Use the Object model to find a specific Object
-  Object.findById(req.params.object_id, function(err, object) {
+  Object.findById({userId: req.user._id, _id:req.params.object_id}, function(err, object) {
     if (err){
       res.send(err);
     }
@@ -46,7 +47,7 @@ exports.getObject = function(req, res) {
 // Create endpoint /api/Objects/:Object_id for PUT
 exports.putObject = function(req, res) {
   // Use the Object model to find a specific Object
-  Object.findById(req.params.object_id, function(err, object) {
+  Object.findById({userId: req.user._id, _id:req.params.object_id },{quantifier : req.body.quantifier}, function(err, object) {
     if (err){
       res.send(err);
     }
@@ -67,7 +68,7 @@ exports.putObject = function(req, res) {
 // Create endpoint /api/Objects/:Object_id for DELETE
 exports.deleteObject = function(req, res) {
   // Use the Object model to find a specific Object and remove it
-  Object.findByIdAndRemove(req.params.object_id, function(err) {
+  Object.findByIdAndRemove({userId: req.user._id, _id: req.params.object_id}, function(err) {
     if (err){
       res.send(err);
     }
