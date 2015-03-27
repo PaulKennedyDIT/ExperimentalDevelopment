@@ -1,0 +1,14 @@
+<div class="row marketing">
+	<h4>Date Validation</h4>
+	</p>
+		Aim of the date validator is to determine age based on the date inputs. Development will be on-going with the aim to speed up age validation in for Sprint 16.
+	</p>
+
+	<h5>Date Input</h5>
+	<div ng-controller="ProjectOneCtrl">
+
+	<input type="text" ng-model="age" placeholder="yyyy-mm-dd">
+	<div ng-hide="age == null">{{ calculateAge() }}</div>
+    
+	</div>
+</div>
