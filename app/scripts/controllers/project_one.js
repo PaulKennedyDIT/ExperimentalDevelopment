@@ -12,11 +12,12 @@ angular.module('experimentalApp')
   .controller('ProjectOneCtrl', function ($scope) {
   	$scope.age = null;
 
-  	$scope.calculateAge = function calculateAge() { // birthday is a date
-  	var age = new Date($scope.age);
-    var ageDifMs = Date.now() - age.getTime();
-    var ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  	// Function to Calculate a persons age based on the current date.
+  	$scope.calculateAge = function calculateAge() { 
+	  	var age = new Date($scope.age);
+	    age = Date.now() - age.getTime();
+	    age = new Date(age);
+	    return Math.abs(age.getUTCFullYear() - 1970);
 	};
   });
 
