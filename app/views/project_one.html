@@ -6,8 +6,13 @@
 
 	<h5>Date Input</h5>
 	<div class="container" ng-controller="ProjectOneCtrl">
-		<div class="row">
-			<input type="text" ng-model="age" placeholder="yyyy-mm-dd">
+		<div class="row-fluid">
+			<div class="span4">Date of Birth</div>
+			<div class="span8"><input type="date" ng-model="age" placeholder="yyyy-mm-dd"></div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">Departure Date</div>
+			<div class="span8"><input type="date" ng-model="departDate" placeholder="yyyy-mm-dd"></div>
 		</div>
 		<br>
 		<div class="row">

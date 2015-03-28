@@ -11,6 +11,7 @@
 angular.module('experimentalApp')
   .controller('ProjectOneCtrl', function ($scope) {
   	$scope.age = '';
+	$scope.departDate = '';
 
   	// Tuples which define the age range for an Infant, Child and Adult
   	$scope.infant = [2,0];
@@ -21,11 +22,12 @@ angular.module('experimentalApp')
   	// Function to Calculate the difference in age between the Current Date and the input Date if the date is in the past.
   	$scope.calculateAge = function calculateAge() {
 	  	var ageInput = new Date($scope.age);
+	  	var departInput = new Date($scope.departDate);
 	  	var date;
 
 	  	// Only calculate age difference if the Age Input is less than the Current Date
-	  	if(ageInput.getTime() < Date.now()){
-		    var difference = Date.now() - ageInput.getTime();
+	  	if(ageInput.getTime() <= departInput.getTime()){
+		    var difference = departInput.getTime() - ageInput.getTime();
 		    date = new Date(difference);
 		    date = Math.abs(date.getUTCFullYear() - 1970);
 		}
@@ -34,6 +36,7 @@ angular.module('experimentalApp')
 	    if(isNaN(date)){
 	    	date = null;
 	    }
+
 	    return date;
 	};
 
@@ -54,9 +57,6 @@ angular.module('experimentalApp')
 		var hotelValid = false;
 
 		if(currentAge !== null && currentAge >= limitFrom && currentAge < limitTo){
-			console.log('From:'+limitFrom);
-			console.log('To:'+limitTo);
-			console.log('Current:'+currentAge);
 			if(currentAge < flightFrom && currentAge >= flightTo){
 				flightValid = true;
 			}
@@ -64,8 +64,6 @@ angular.module('experimentalApp')
 			if(currentAge < hotelFrom && currentAge >= hotelTo){
 				hotelValid = true;
 			}
-			console.log('Hotel Valid:'+hotelValid);
-			console.log('Flight Valid:'+flightValid);
 		}
 		if(hotelValid !== flightValid){
 			return true;
