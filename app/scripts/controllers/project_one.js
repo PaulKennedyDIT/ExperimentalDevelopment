@@ -11,7 +11,8 @@
 angular.module('experimentalApp')
   .controller('ProjectOneCtrl', function ($scope) {
   	$scope.age = '';
-	$scope.departDate = '';
+	$scope.departDate = new Date();
+	$scope.errorDifference = null;
 
   	// Tuples which define the age range for an Infant, Child and Adult
   	$scope.infant = [2,0];
@@ -30,6 +31,12 @@ angular.module('experimentalApp')
 		    var difference = departInput.getTime() - ageInput.getTime();
 		    date = new Date(difference);
 		    date = Math.abs(date.getUTCFullYear() - 1970);
+
+		    if(difference === 0){
+		    	$scope.errorDifference = true;
+		    }
+		    $scope.errorDifference = false;
+
 		}
 
 		// If NaN set to null
@@ -68,8 +75,7 @@ angular.module('experimentalApp')
 		if(hotelValid !== flightValid){
 			return true;
 		}
-		else
-		{
+		else{
 			return false;
 		}
 	};
