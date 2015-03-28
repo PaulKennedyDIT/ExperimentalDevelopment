@@ -141,12 +141,12 @@ module.exports = function (grunt) {
           dot: true,
           src: [
            '.tmp',
-                '<%= yeoman.dist %>/*',
-                '!<%= yeoman.dist %>/.git{,*/}*',
-                '!<%= yeoman.dist %>/Procfile',
-                '!<%= yeoman.dist %>/package.json',
-                '!<%= yeoman.dist %>/web.js',
-                '!<%= yeoman.dist %>/node_modules'
+            '<%= yeoman.dist %>/*',
+            '!<%= yeoman.dist %>/.git{,*/}*',
+            '!<%= yeoman.dist %>/Procfile',
+            '!<%= yeoman.dist %>/package.json',
+            '!<%= yeoman.dist %>/web.js',
+            '!<%= yeoman.dist %>/node_modules'
           ]
         }]
       },
@@ -247,6 +247,20 @@ module.exports = function (grunt) {
         ]
       }
     },
+    buildcontrol: {
+      options: {
+          dir: 'dist',
+          commit: true,
+          push: true,
+          message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      heroku: {
+          options: {
+              remote: 'git@heroku.com:experimentaldevelopment.git',
+              branch: 'master'
+          }
+      }
+   },
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -478,19 +492,4 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
-
-  buildcontrol: {
-    options: {
-        dir: 'dist',
-        commit: true,
-        push: true,
-        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-    },
-    heroku: {
-        options: {
-            remote: 'git@heroku.com:experimentaldevelopment.git',
-            branch: 'master'
-        }
-    }
- }
 };
