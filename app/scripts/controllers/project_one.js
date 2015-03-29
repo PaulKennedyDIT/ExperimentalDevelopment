@@ -58,20 +58,25 @@ angular.module('experimentalApp')
 		}
 	};
 
+	// Function which determines if the date of birth has a cross over between the Flight Age Ranges and the Hotel Date Ranges.
 	$scope.ageCrossOver = function ageCrossOver(flightFrom,flightTo,hotelFrom,hotelTo,limitTo,limitFrom){
 		var currentAge = $scope.calculateAge();
 		var flightValid = false;
 		var hotelValid = false;
 
 		if(currentAge !== null && currentAge >= limitFrom && currentAge < limitTo){
+			// Check is the Flight Segment within the specified limit.
 			if(currentAge < flightFrom && currentAge >= flightTo){
 				flightValid = true;
 			}
 
+			// Check if the Hotel Segment is within the specified limit.
 			if(currentAge < hotelFrom && currentAge >= hotelTo){
 				hotelValid = true;
 			}
 		}
+
+		// Determine if the Hotel Segment does not match the Flight segment
 		if(hotelValid !== flightValid){
 			return true;
 		}

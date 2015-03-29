@@ -6,10 +6,12 @@
 
 	<h5>Date Input</h5>
 	<div class="container" ng-controller="ProjectOneCtrl">
+		<!-- Date of Birth Input -->
 		<div class="row-fluid">
 			<div class="span4">Date of Birth</div>
 			<div class="span8"><input type="date" ng-model="age" placeholder="yyyy-mm-dd"></div>
 		</div>
+		<!-- Departure Date Input -->
 		<div class="row-fluid">
 			<div class="span4">Departure Date</div>
 			<div class="span8"><input type="date" ng-model="departDate" placeholder="yyyy-mm-dd"></div>
@@ -17,6 +19,7 @@
 		<br>
 		<div class="row">
 			<div ng-hide="age == null">
+				<!--  Infant Flight Segment Success Validation-->
 				<div ng-hide="ageRange(infant[0],infant[1]) == null">
 					<div class="alert alert-success" role="alert">Flight Validation: The date selected is valid for an Infant with an age of 
 						<span class="badge">
@@ -24,7 +27,7 @@
 						</span>
 					</div>
 				</div>
-
+				<!-- Child Flight Segment Success Validation -->
 				<div ng-hide="ageRange(child[0],child[1]) == null">
 					<div class="alert alert-success" role="alert">Flight Validation: The date selected is valid for a Child with an age of 
 						<span class="badge">
@@ -33,6 +36,7 @@
 					</div>
 				</div>
 
+				<!-- Adult Flight Segment Success Validation -->
 				<div ng-hide="ageRange(adult[0],adult[1]) == null">
 					<div class="alert alert-success" role="alert">Flight Validation: The date selected is valid for an Adult with an age of 
 						<span class="badge">
@@ -41,6 +45,7 @@
 					</div>
 				</div>
 
+				<!-- Child Hotel Segment Success Validation-->
 				<div ng-hide="ageRange(childHotel[0],childHotel[1]) == null">
 					<div class="alert alert-success" role="alert">Hotel Validation: The date selected is valid for a Child with an age of 
 						<span class="badge">
@@ -49,6 +54,7 @@
 					</div>
 				</div>
 
+				<!-- Child Cross Over Warning Validation-->
 				<div ng-hide="ageCrossOver(child[0],child[1],childHotel[0],childHotel[1],18,2) == false">
 					<div class="alert alert-warning" role="alert">Warning: With the current date input, the passenger is an Adult in the flight segment and a child in the Hotel Segment. Age selected is  
 						<span class="badge">
@@ -57,6 +63,7 @@
 					</div>
 				</div>
 
+				<!-- Infant Cross Over Warning Validation-->
 				<div ng-hide="ageCrossOver(infant[0],infant[1],child[0],child[1],2,0) == false">
 					<div class="alert alert-warning" role="alert">Warning: With the current date input, the passenger is an Infant in the flight segment and a child in the Hotel Segment. Age selected is  
 						<span class="badge">
